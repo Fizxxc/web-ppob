@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Promo</title>
+  <style>
+    /* Body styling */
+body {
+  font-family: 'Poppins';
+  background-color: #f7f7f7;
+}
+
+    .saldo-bg-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 260px;
+      background: linear-gradient(145deg, #0b2680, #071e92);
+      z-index: -2;
+      border-bottom-right-radius: 50% 10%;
+      border-bottom-left-radius: 50% 10%;
+    }
+
+    .promo-container {
+  padding: 20px 10px;
+  margin: 0;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  color: white;
+  text-align: center;
+  position: relative;
+  top: 0; /* ini memastikan elemen tetap di atas */
+}
+
+
+    .promo-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .promo-card img {
+      width: 100%;
+      height: auto;
+    }
+
+    .promo-card .promo-text {
+      padding: 15px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .no-promo {
+      font-size: 18px;
+      color: #888;
+      margin-top: 20px;
+    }
+
+    .copy {
+      font-size: 10px;
+      color: #888;
+      margin-top: 20px;
+    }
+
+    .back-button {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: bold;
+      padding: 10px;
+    }
+
+    .back-icon {
+      width: 25px;
+      height: 25px;
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="/" class="back-button">
+    <img src="/src/back-white.png" alt="Kembali" class="back-icon">
+    <span>Back</span>
+  </a>
+
+<div class="saldo-bg-layer"></div>
+  <div class="promo-container">
+    <h2 style="text-align: center; color: #e4e4e4;"><b>Promo Inform</b></h2>
+    <p style="text-align: center; color: #e4e4e4;">Berbagai informasi seputar penawaran</p>
+
+    <!-- Promo 1 -->
+    <div class="promo-card">
+      <img src="/src/promosi.jpg" alt="Promo Page">
+      <div class="promo-text">
+        Diskon 20% untuk pembelian minuman di atas Rp30.000! Berlaku hingga 30 April 2025.
+      </div>
+    </div>
+
+    <!-- Promo 2 -->
+    <div class="promo-card">
+      <img src="/src/promosi2.jpg" alt="Promo Page">
+      <div class="promo-text">
+        Beli 2 gratis 1 untuk semua varian teh! S&K berlaku.
+      </div>
+    </div>
+
+    <p class="copy">© 2025 Delibo Market. All rights reserved.</p>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const promos = document.querySelectorAll(".promo-card");
+  
+      promos.forEach((card, index) => {
+        card.style.opacity = 0;
+        card.style.transform = "translateY(30px)";
+        card.style.transition = "all 0.6s ease-out";
+        setTimeout(() => {
+          card.style.opacity = 1;
+          card.style.transform = "translateY(0)";
+        }, index * 200); // jeda animasi antar kartu
+      });
+    });
+  </script>  
+</body>
+</html>

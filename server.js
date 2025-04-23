@@ -1,0 +1,51 @@
+const express = require("express");
+const bodyParser = require("body-parser");
+const axios = require("axios");
+const path = require("path"); 
+const app = express();
+const PORT = 3000;
+
+app.use(bodyParser.json());
+app.use(express.static("public"));
+
+const TELEGRAM_BOT_TOKEN = "7314362724:AAGObx-oh4d0sz8MsyRdB0W6qwLHqb3XY58";
+const TELEGRAM_CHAT_ID = "6450551010";
+
+app.post("/order", async (req, res) => {
+  const { drink, code } = req.body;
+  try {
+    await axios.post(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      chat_id: TELEGRAM_CHAT_ID,
+      text: `🧃 Pesanan Baru Masuk:\nMinuman: ${drink}\n🔐 Kode Penukaran: ${code}`
+    });
+    res.sendStatus(200);
+  } catch (error) {
+    console.error("Gagal kirim ke Telegram:", error.message);
+    res.sendStatus(500);
+  }
+});
+
+
+// Route utama
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public/index.html"));
+  });
+
+app.get("/menu", (req, res) => {
+  res.sendFile(__dirname + "/public/menu.html");
+});
+
+app.get("/topup", (req, res) => {
+    res.sendFile(__dirname + "/public/topup.html");
+  });
+
+  app.get("/history", (req, res) => {
+    res.sendFile(__dirname + "/public/history.html");
+  });
+
+  app.get("/promo", (req, res) => {
+    res.sendFile(__dirname + "/public/promo.html");
+  });
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});

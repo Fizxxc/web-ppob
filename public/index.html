@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Delibo Drink</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+<body>
+  <div class="saldo-bg-layer"></div>
+    <div class="header-card">
+        <div>
+          <small id="nickname">Halo, Anonim</small>
+          <h2>Saldo</h2>
+          <p id="saldo">Rp0</p>
+        </div>
+        <button class="topup-btn" id="topupBtn">Top Up</button>
+      </div>
+      
+
+  <div class="feature-grid">
+    <a href="/menu" class="feature-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cup-soda-icon lucide-cup-soda"><path d="m6 8 1.75 12.28a2 2 0 0 0 2 1.72h4.54a2 2 0 0 0 2-1.72L18 8"/><path d="M5 8h14"/><path d="M7 15a6.47 6.47 0 0 1 5 0 6.47 6.47 0 0 0 5 0"/><path d="m12 8 1-6h2"/></svg>
+      <p>Minuman</p>
+    </a>
+    <a href="/promo" class="feature-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tickets-icon lucide-tickets"><path d="m4.5 8 10.58-5.06a1 1 0 0 1 1.342.488L18.5 8"/><path d="M6 10V8"/><path d="M6 14v1"/><path d="M6 19v2"/><rect x="2" y="8" width="20" height="13" rx="2"/></svg>
+      <p>Promo</p>
+    </a>
+    <a href="/history" class="feature-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-history-icon lucide-history"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
+      <p>History</p>
+    </a>
+  </div>
+  
+  
+
+  <h3 class="section-title">Rekomendasi Minuman</h3>
+  <div class="drink-list">
+    <div class="drink-card">
+      <img src="/src/aqua.jpg" alt="Aqua">
+      <h4>Aqua</h4>
+      <p>Rp5.000</p>
+      <button onclick="openForm('Aqua')">Beli</button>
+    </div>
+    <!-- Tambah minuman lainnya -->
+  </div>
+
+  <div class="header-card">
+    <div>
+      <h3><b>INFORMASI</b></h3>
+      <p>Untuk sementara fitur saldo masih dalam pengembangan dan akan segera tersedia!</p>
+
+      <h3><b>NOTE</b></h3>
+      <p>Hanya untuk pesanan offline saja, selain offline tidak akan di kirim, bisa bayar menggunakan qris.</p>
+    </div>
+  </div>
+
+ <!-- 🔒 Form Login Popup -->
+<div class="form-popup" id="loginForm">
+    <form class="form-container" onsubmit="loginUser(event)">
+      <h2>Login</h2>
+      <label for="email">Email:</label>
+      <input type="email" name="email" required>
+  
+      <label for="password">Password:</label>
+      <input type="password" name="password" required>
+  
+      <button type="submit">Login</button>
+      <p>Belum punya akun? <a href="#" onclick="switchToRegister()">Daftar Sekarang</a></p>
+      <button type="button" onclick="closeForm()">Tutup</button>
+    </form>
+  </div>
+  
+  <!-- 📝 Form Register Popup -->
+  <div class="form-popup" id="registerForm" style="display:none;">
+    <form class="form-container" onsubmit="registerUser(event)">
+      <h2>Daftar</h2>
+      <label for="name">Nama:</label>
+      <input type="text" name="name" required>
+  
+      <label for="email">Email:</label>
+      <input type="email" name="email" required>
+  
+      <label for="password">Password:</label>
+      <input type="password" name="password" required>
+  
+      <button type="submit">Daftar</button>
+      <p>Sudah punya akun? <a href="#" onclick="switchToLogin()">Login Sekarang</a></p>
+      <button type="button" onclick="closeForm()">Tutup</button>
+    </form>
+  </div>
+  
+
+  <script src="/js/script.js"></script>
+</body>
+</html>

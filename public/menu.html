@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Minuman</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<style>
+ 
+</style>
+<body>
+  <div class="saldo-bg-layer"></div>
+  <a href="/" class="back-button">
+    <img src="/src/back-white.png" alt="Kembali" class="back-icon">
+    <span>Back</span>
+  </a>
+      
+  <h1 class="page-title">Menu Minuman</h1>
+  <p style="text-align: center; color: #e4e4e4;">Silahkan pilih minuman:</p>
+
+  <div class="drink-list">
+    <div class="drink-card">
+      <img src="/src/aqua.jpg" alt="Aqua">
+      <h3>Aqua</h3>
+      <p>Rp 5.000</p>
+      <button onclick="orderDrink('Aqua')">Pesan</button>
+    </div>
+    <div class="drink-card">
+      <img src="/src/aqua.jpg" alt="Aqua">
+      <h3>Aqua</h3>
+      <p>Rp 5.000</p>
+      <button onclick="orderDrink('Aqua')">Pesan</button>
+    </div>
+    <div class="drink-card">
+      <img src="/src/aqua.jpg" alt="Aqua">
+      <h3>Aqua</h3>
+      <p>Rp 5.000</p>
+      <button onclick="orderDrink('Aqua')">Pesan</button>
+    </div>
+  </div>
+
+  <script>
+    function generateKodeUnik() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let kode = '';
+      for (let i = 0; i < 6; i++) {
+        kode += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return kode;
+    }
+
+    function orderDrink(name) {
+      Swal.fire({
+        title: `Pesan ${name}?`,
+        text: "Apakah kamu yakin ingin memesan minuman ini?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Ya, pesan",
+        cancelButtonText: "Batal"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const kodeUnik = generateKodeUnik();
+
+          // Kirim ke bot Telegram
+          fetch("/order", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ drink: name, code: kodeUnik })
+          });
+
+          // Tampilkan kode penukaran
+          Swal.fire({
+            title: "Pesanan Terkirim!",
+            html: `Minuman <b>${name}</b> berhasil dipesan.<br><br><b>Kode Penukaran:</b><br><code style="font-size: 1.5em;">${kodeUnik}</code>`,
+            icon: "success",
+            confirmButtonText: "Selesai"
+          });
+        }
+      });
+    }
+  </script>  
+</body>
+</html>

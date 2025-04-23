@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Top Up Saldo</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<style>
+    /* Reset default browser styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+.saldo-bg-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 260px;
+      background: linear-gradient(145deg, #0b2680, #071e92);
+      z-index: -2;
+      border-bottom-right-radius: 50% 10%;
+      border-bottom-left-radius: 50% 10%;
+    }
+.header-card {
+      background: #008CFF;
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+/* Top Up Container */
+.topup-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-top-right-radius: 50% 10%;
+  border-top-left-radius: 50% 10%;
+  text-align: center;
+}
+ .p1 {
+    color: white;
+ }
+h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 16px;
+  color: #8a8a8a;
+}
+
+/* Nominal Options */
+.nominal-options {
+  margin-top: 20px;
+}
+
+.nominal-options button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  margin: 5px;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.nominal-options button:hover {
+  background-color: #0056b3;
+}
+
+.nominal-options button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+/* Selected Amount */
+#selected-amount {
+  font-size: 18px;
+  margin-top: 20px;
+  color: #333;
+  font-weight: bold;
+}
+
+/* QRIS Section */
+.qris-section {
+  margin-top: 20px;
+}
+
+.qris-section h3 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.qris-section img {
+  max-width: 100%;
+  margin: 10px 0;
+}
+
+/* Buttons */
+button {
+  font-size: 16px;
+  padding: 10px 20px;
+  background-color: #0056b3;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+h3 {
+    text-align: center;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.back-icon {
+  width: 25px;
+  height: 25px;
+  margin-right: 8px;
+}
+</style>
+
+<body>
+  <a href="/" class="back-button">
+    <img src="/src/back-white.png" alt="Kembali" class="back-icon">
+    <span>Back</span>
+  </a>
+
+  
+  <div class="saldo-bg-layer"></div>
+  <div class="topup-container">
+    <h2><b>Top Up Saldo</b></h2>
+    <p>Pilih nominal:</p>
+    <div class="nominal-options">
+      <button onclick="selectAmount(5000)">Rp5.000</button>
+      <button onclick="selectAmount(10000)">Rp10.000</button>
+      <button onclick="selectAmount(15000)">Rp15.000</button>
+    </div>
+
+    <div id="selected-amount" style="margin-top: 10px;"></div>
+
+    <div class="qris-section" style="display:none;">
+      <h3>Scan QRIS untuk Pembayaran:</h3>
+      <img src="/src/qriss.png" alt="QRIS" width="250">
+      <button onclick="confirmPayment()">Saya sudah bayar</button>
+    </div>
+  </div>
+
+  <div class="header-card">
+    <div>
+      <h3><b>INFORMASI</b></h3>
+      <p1>Untuk sementara fitur saldo masih dalam pengembangan dan akan segera tersedia!</p1>
+      <p1><b>*bisa bayar lewat sini</b></p1>
+    </div>
+  </div>
+
+  <script>
+    let selected = 0;
+
+    function selectAmount(amount) {
+      selected = amount;
+      document.getElementById("selected-amount").innerHTML = `Nominal yang dipilih: <b>Rp${amount.toLocaleString()}</b>`;
+      document.querySelector(".qris-section").style.display = "block";
+    }
+
+    function confirmPayment() {
+  Swal.fire({
+    title: "Konfirmasi Pembayaran",
+    text: "Apakah kamu sudah melakukan pembayaran QRIS?",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonText: "Sudah",
+    cancelButtonText: "Belum"
+  }).then(result => {
+    if (result.isConfirmed) {
+
+      let user = JSON.parse(localStorage.getItem("loggedInUser"));
+      
+      if (!user) {
+        return Swal.fire("Gagal", "Kamu belum login!", "error");
+      }
+
+      console.log("User sebelum pembaruan saldo:", user);
+
+      user.saldo = user.saldo || 0; 
+
+      console.log("Nominal yang dipilih: ", selected);
+
+      user.saldo += selected; 
+
+      console.log("User setelah pembaruan saldo:", user);
+
+      localStorage.setItem("loggedInUser", JSON.stringify(user));
+
+      console.log("Data disimpan di localStorage:", localStorage.getItem("loggedInUser"));
+
+      Swal.fire("Berhasil!", `Saldo kamu bertambah Rp${selected.toLocaleString()}`, "success")
+        .then(() => {
+          window.location.href = "/";
+        });
+    }
+  });
+}
+  </script>
+
+  <script src="/js/script.js"></script>
+</body>
+</html>
