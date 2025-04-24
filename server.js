@@ -25,26 +25,26 @@ app.post("/order", async (req, res) => {
   }
 });
 
-
+app.use(express.static(path.join(__dirname, 'public')));
 // Route utama
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public/index.html"));
+    res.sendFile(path.join(__dirname, "/views/index.html"));
   });
 
 app.get("/menu", (req, res) => {
-  res.sendFile(__dirname + "/public/menu.html");
+  res.sendFile(__dirname + "/views/menu.html");
 });
 
 app.get("/topup", (req, res) => {
-    res.sendFile(__dirname + "/public/topup.html");
+    res.sendFile(__dirname + "/views/topup.html");
   });
 
   app.get("/history", (req, res) => {
-    res.sendFile(__dirname + "/public/history.html");
+    res.sendFile(__dirname + "/views/history.html");
   });
 
   app.get("/promo", (req, res) => {
-    res.sendFile(__dirname + "/public/promo.html");
+    res.sendFile(__dirname + "/views/promo.html");
   });
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
