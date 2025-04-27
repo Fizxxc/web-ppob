@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Convert E-Wallet</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+    }
+
+    .saldo-bg-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 260px;
+      background: linear-gradient(145deg, #0b2680, #071e92);
+      z-index: -2;
+      border-bottom-right-radius: 50% 10%;
+      border-bottom-left-radius: 50% 10%;
+    }
+
+    .container {
+      max-width: 420px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #0860a9;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0860a9;
+    }
+
+    #qrisModal {
+      display: none;
+      text-align: center;
+    }
+
+    #qrisModal img {
+      width: 250px;
+      margin: 15px 0;
+    }
+
+    .back-button {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+    <div class="saldo-bg-layer"></div>
+  <div class="container">
+    <h2>Convert E-Wallet</h2>
+    <form id="convertForm">
+      <input type="number" name="amount" placeholder="Jumlah yang ingin dikonversi (Rp)" required />
+      <select name="from_wallet" required>
+        <option value="" disabled selected>Dari E-Wallet</option>
+        <option value="Dana">Dana</option>
+        <option value="OVO">OVO</option>
+        <option value="Gopay">Gopay</option>
+        <option value="ShopeePay">ShopeePay</option>
+      </select>
+      <select name="to_wallet" required>
+        <option value="" disabled selected>Ke E-Wallet</option>
+        <option value="Dana">Dana</option>
+        <option value="OVO">OVO</option>
+        <option value="Gopay">Gopay</option>
+        <option value="ShopeePay">ShopeePay</option>
+      </select>
+      <input type="text" name="wallet_number" placeholder="Nomor E-Wallet Tujuan" required />
+      <input type="text" name="sender_number" placeholder="Nomor Pengirim (untuk dihubungi)" required />
+      <button type="submit">Bayar & Convert</button>
+    </form>
+
+    <div id="qrisModal">
+      <h3>Silakan bayar terlebih dahulu:</h3>
+      <img src="/src/qriss.png" alt="QRIS Pembayaran" />
+      <button id="confirmPaymentBtn">Saya Sudah Bayar</button>
+    </div>
+
+    <a href="/" class="back-button">Kembali</a>
+  </div>
+
+  <script>
+    const form = document.getElementById("convertForm");
+    const modal = document.getElementById("qrisModal");
+    const confirmBtn = document.getElementById("confirmPaymentBtn");
+
+    let formDataGlobal = {};
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      formDataGlobal = Object.fromEntries(formData.entries());
+
+      form.style.display = "none";
+      modal.style.display = "block";
+    });
+
+    confirmBtn.addEventListener("click", async () => {
+      try {
+        const res = await fetch("/convert", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(formDataGlobal)
+        });
+
+        if (res.ok) {
+          Swal.fire("Sukses", "Convert berhasil, kamu akan mendapatkan notif dari admin untuk konfirmasi pesanan!", "success");
+          form.reset();
+        } else {
+          Swal.fire("Gagal", "Terjadi kesalahan.", "error");
+        }
+      } catch (err) {
+        Swal.fire("Error", "Koneksi gagal.", "error");
+      } finally {
+        modal.style.display = "none";
+        form.style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>
