@@ -26,7 +26,8 @@ app.post("/order", async (req, res) => {
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
-// Route utama
+
+// code page
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "/views/index.html"));
   });
@@ -46,6 +47,39 @@ app.get("/topup", (req, res) => {
   app.get("/promo", (req, res) => {
     res.sendFile(__dirname + "/views/promo.html");
   });
+
+  app.get("/makanan", (req, res) => {
+    res.sendFile(__dirname + "/views/makanan.html");
+  });
+
+  app.get("/location", (req, res) => {
+    res.sendFile(__dirname + "/views/location.html");
+  });
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
+app.get("/convert", (req, res) => {
+  res.sendFile(__dirname + "/views/convert.html");
+});
+
+app.post("/convert", (req, res) => {
+  const { amount, from_wallet, to_wallet, wallet_number, sender_number } = req.body;
+
+  const message = `
+💱 Permintaan Convert E-Wallet
+Jumlah: Rp${amount}
+Dari: ${from_wallet}
+Ke: ${to_wallet}
+Nomor Tujuan: ${wallet_number}
+Nomor Pengirim: ${sender_number}
+  `;
+
+  axios.post(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+    chat_id: TELEGRAM_CHAT_ID,
+    text: message
+  });
+
+  res.sendStatus(200);
+});
+
