@@ -55,6 +55,12 @@ app.get("/topup", (req, res) => {
   app.get("/location", (req, res) => {
     res.sendFile(__dirname + "/views/location.html");
   });
+
+// Middleware 404: Halaman tidak ditemukan
+app.use((req, res) => {
+  res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
