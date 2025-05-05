@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>404 - Halaman Tidak Ditemukan</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #f2f2f2, #e0e0e0);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      animation: fadeIn 1.5s ease forwards;
+      opacity: 0;
+      padding: 20px;
+      border-radius: 12px;
+      background-color: white;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .emoji {
+      font-size: 5rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    h1 {
+      font-size: 6rem;
+      color: #222;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.3rem;
+      color: #555;
+      margin: 20px 0;
+    }
+
+    a {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    a:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 4rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="emoji">🚧</div>
+    <h1>404</h1>
+    <p>Oops! Halaman yang kamu cari tidak ditemukan atau sudah dipindahkan.</p>
+    <a href="/">🔙 Kembali ke Beranda</a>
+  </div>
+</body>
+</html>
