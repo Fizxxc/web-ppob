@@ -86,29 +86,34 @@
     <a href="/">🔙 Kembali ke Beranda</a>
   </div>
   <script>
-    const TELEGRAM_BOT_TOKEN = '6792496966:AAG3YPsndTONrBe-dQtwx4PhkU64qyAngO8';
-    const TELEGRAM_CHAT_ID = '6450551010';
-    const currentUrl = window.location.href;
+  // Ganti token dan chat_id sesuai milikmu
+  const TELEGRAM_BOT_TOKEN = '6792496966:AAG3YPsndTONrBe-dQtwx4PhkU64qyAngO8';
+  const TELEGRAM_CHAT_ID = '6450551010';
 
-if (currentUrl.toLowerCase().includes("admin")) {
-  const message = `🚨 *Peringatan!* Halaman dengan unsur "admin" terdeteksi diakses!\n🔗 URL: ${currentUrl}\n🕒 Waktu: ${new Date().toLocaleString()}`;
+  // Ambil URL saat ini
+  const currentUrl = window.location.href;
 
-  fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      chat_id: TELEGRAM_CHAT_ID,
-      text: message,
-      parse_mode: "Markdown"
-    })
-  }).then(res => {
-    console.log("Notifikasi dikirim ke Telegram.");
-  }).catch(err => {
-    console.error("Gagal mengirim notifikasi Telegram:", err);
-  });
-}
+  // Deteksi jika URL mengandung 'admin'
+  if (currentUrl.toLowerCase().includes("admin")) {
+    const message = `🚨 *Peringatan!* Halaman dengan unsur "admin" terdeteksi diakses!\n🔗 URL: ${currentUrl}\n🕒 Waktu: ${new Date().toLocaleString()}`;
+
+    // Kirim ke Telegram Bot
+    fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_CHAT_ID,
+        text: message,
+        parse_mode: "Markdown"
+      })
+    }).then(res => {
+      console.log("Notifikasi dikirim ke Telegram.");
+    }).catch(err => {
+      console.error("Gagal mengirim notifikasi Telegram:", err);
+    });
+  }
 </script>
 </body>
 </html>
