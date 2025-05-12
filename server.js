@@ -60,6 +60,10 @@ app.get("/convert", (req, res) => {
     res.sendFile(__dirname + "/views/location.html");
   });
 
+app.get("/admin-dashboard", (req, res) => {
+    res.sendFile(__dirname + "/views/admin-dashboard.html");
+  });
+
 
 // Middleware 404: Halaman tidak ditemukan
 app.use((req, res) => {
