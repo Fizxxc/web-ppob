@@ -64,6 +64,9 @@ app.get("/admin-dashboard", (req, res) => {
     res.sendFile(__dirname + "/views/admin-dashboard.html");
   });
 
+app.get("/admin-settings", (req, res) => {
+    res.sendFile(__dirname + "/views/admin-settings.html");
+  });
 
 // Middleware 404: Halaman tidak ditemukan
 app.use((req, res) => {
