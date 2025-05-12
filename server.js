@@ -60,13 +60,10 @@ app.get("/convert", (req, res) => {
     res.sendFile(__dirname + "/views/location.html");
   });
 
-app.get("/404", (req, res) => {
-  res.sendFile(__dirname + "/views/404.html");
-});
 
 // Middleware 404: Halaman tidak ditemukan
 app.use((req, res) => {
-  res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+  res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
 });
 
 app.listen(PORT, () => {
