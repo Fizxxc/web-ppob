@@ -52,9 +52,17 @@ app.get("/topup", (req, res) => {
     res.sendFile(__dirname + "/views/makanan.html");
   });
 
+app.get("/convert", (req, res) => {
+  res.sendFile(__dirname + "/views/convert.html");
+});
+
   app.get("/location", (req, res) => {
     res.sendFile(__dirname + "/views/location.html");
   });
+
+app.get("/404", (req, res) => {
+  res.sendFile(__dirname + "/views/404.html");
+});
 
 // Middleware 404: Halaman tidak ditemukan
 app.use((req, res) => {
@@ -63,10 +71,6 @@ app.use((req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
-});
-
-app.get("/convert", (req, res) => {
-  res.sendFile(__dirname + "/views/convert.html");
 });
 
 app.post("/convert", (req, res) => {
