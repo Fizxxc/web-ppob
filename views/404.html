@@ -86,18 +86,12 @@
     <a href="/">🔙 Kembali ke Beranda</a>
   </div>
   <script>
-  // Ganti token dan chat_id sesuai milikmu
   const TELEGRAM_BOT_TOKEN = '6792496966:AAG3YPsndTONrBe-dQtwx4PhkU64qyAngO8';
   const TELEGRAM_CHAT_ID = '6450551010';
-
-  // Ambil URL saat ini
   const currentUrl = window.location.href;
 
-  // Deteksi jika URL mengandung 'admin'
-  if (currentUrl.toLowerCase().includes("admin")) {
-    const message = `🚨 *Peringatan!* Halaman dengan unsur "admin" terdeteksi diakses!\n🔗 URL: ${currentUrl}\n🕒 Waktu: ${new Date().toLocaleString()}`;
-
-    // Kirim ke Telegram Bot
+  // Fungsi kirim ke Telegram
+  function sendToTelegram(message) {
     fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
       method: "POST",
       headers: {
@@ -113,6 +107,30 @@
     }).catch(err => {
       console.error("Gagal mengirim notifikasi Telegram:", err);
     });
+  }
+
+  // Jika URL mengandung "admin"
+  if (currentUrl.toLowerCase().includes("admin")) {
+    // Ambil IP & info lokasi
+    fetch("https://ipapi.co/json/")
+      .then(response => response.json())
+      .then(data => {
+        const message = `🚨 *Peringatan Akses Halaman Admin!*\n\n` +
+                        `🔗 *URL:* ${currentUrl}\n` +
+                        `🌐 *IP:* ${data.ip}\n` +
+                        `📍 *Lokasi:* ${data.city}, ${data.region}, ${data.country_name}\n` +
+                        `🕒 *Waktu:* ${new Date().toLocaleString()}`;
+
+        sendToTelegram(message);
+      })
+      .catch(error => {
+        console.error("Gagal mengambil data IP:", error);
+        const message = `🚨 *Peringatan Akses Halaman Admin!*\n\n` +
+                        `🔗 *URL:* ${currentUrl}\n` +
+                        `⚠️ Gagal mengambil info IP.\n` +
+                        `🕒 *Waktu:* ${new Date().toLocaleString()}`;
+        sendToTelegram(message);
+      });
   }
 </script>
 </body>
