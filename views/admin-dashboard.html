@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white shadow-md hidden md:block">
+      <div class="p-6 text-2xl font-bold text-blue-600">
+        Admin Panel
+      </div>
+      <nav class="mt-6">
+        <a href="#" class="block py-2.5 px-4 rounded hover:bg-blue-100">Dashboard</a>
+        <a href="#" class="block py-2.5 px-4 rounded hover:bg-blue-100">Users</a>
+        <a href="#" class="block py-2.5 px-4 rounded hover:bg-blue-100">Orders</a>
+        <a href="#" class="block py-2.5 px-4 rounded hover:bg-blue-100">Messages</a>
+        <a href="#" class="block py-2.5 px-4 rounded hover:bg-blue-100">Settings</a>
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <!-- Header -->
+      <header class="bg-white shadow p-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold">Dashboard</h1>
+        <div class="flex items-center gap-4">
+          <span class="text-sm text-gray-600">Admin</span>
+          <img src="https://ui-avatars.com/api/?name=Admin" class="w-8 h-8 rounded-full" alt="Admin Avatar">
+        </div>
+      </header>
+
+      <!-- Content -->
+      <main class="flex-1 overflow-y-auto p-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Card 1 -->
+          <div class="bg-white rounded-lg shadow p-4">
+            <h2 class="text-lg font-semibold mb-2">Total Users</h2>
+            <p class="text-3xl font-bold text-blue-600">1,245</p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bg-white rounded-lg shadow p-4">
+            <h2 class="text-lg font-semibold mb-2">Total Orders</h2>
+            <p class="text-3xl font-bold text-green-600">3,102</p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bg-white rounded-lg shadow p-4">
+            <h2 class="text-lg font-semibold mb-2">Messages</h2>
+            <p class="text-3xl font-bold text-yellow-600">48</p>
+          </div>
+        </div>
+
+        <!-- Table Section -->
+        <div class="mt-10">
+          <h2 class="text-xl font-semibold mb-4">Recent Orders</h2>
+          <div class="overflow-x-auto bg-white rounded-lg shadow">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-100">
+                <tr>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap">#12345</td>
+                  <td class="px-6 py-4 whitespace-nowrap">Budi Santoso</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-green-600">Completed</td>
+                  <td class="px-6 py-4 whitespace-nowrap">Rp150.000</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap">#12346</td>
+                  <td class="px-6 py-4 whitespace-nowrap">Siti Aminah</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-yellow-500">Pending</td>
+                  <td class="px-6 py-4 whitespace-nowrap">Rp230.000</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap">#12347</td>
+                  <td class="px-6 py-4 whitespace-nowrap">Andi Wijaya</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-red-500">Canceled</td>
+                  <td class="px-6 py-4 whitespace-nowrap">Rp90.000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
