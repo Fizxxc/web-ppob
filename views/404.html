@@ -86,7 +86,29 @@
     <a href="/">🔙 Kembali ke Beranda</a>
   </div>
   <script>
-eval(atob("Y29uc3QgVEVMRUdSQU1fQk9UX1RPS0VOID0gJzY3OTI0OTY5NjY6QUFHM1lQc25kVE9OckJlLWRRdHd4NFBoa1U2NHF5QW5nTzg7Jwpjb25zdCBURUxF...=="));
+    const TELEGRAM_BOT_TOKEN = '6792496966:AAG3YPsndTONrBe-dQtwx4PhkU64qyAngO8';
+    const TELEGRAM_CHAT_ID = '6450551010';
+    const currentUrl = window.location.href;
+
+if (currentUrl.toLowerCase().includes("admin")) {
+  const message = `🚨 *Peringatan!* Halaman dengan unsur "admin" terdeteksi diakses!\n🔗 URL: ${currentUrl}\n🕒 Waktu: ${new Date().toLocaleString()}`;
+
+  fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      chat_id: TELEGRAM_CHAT_ID,
+      text: message,
+      parse_mode: "Markdown"
+    })
+  }).then(res => {
+    console.log("Notifikasi dikirim ke Telegram.");
+  }).catch(err => {
+    console.error("Gagal mengirim notifikasi Telegram:", err);
+  });
+}
 </script>
 </body>
 </html>
